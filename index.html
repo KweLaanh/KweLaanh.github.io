@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góc Nhỏ Nhà Chanh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #FFDE4D; /* Màu vàng chanh chính */
+            --secondary-color: #FFFBDA; /* Màu vàng nhạt nền */
+            --accent-color: #FFB200; /* Màu vàng đậm nhấn */
+            --text-color: #5B4B00; /* Màu chữ nâu ấm phù hợp với tone vàng */
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', 'Comfortaa', sans-serif;
+        }
+
+        body {
+            background-color: #FFFDF0;
+            background-image: radial-gradient(var(--secondary-color) 20%, transparent 20%),
+                              radial-gradient(var(--secondary-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        /* Khung điện thoại giả lập giống trong ảnh */
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            height: 90vh;
+            max-height: 850px;
+            background: white;
+            border: 8px solid var(--primary-color);
+            border-radius: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow-y: auto;
+            position: relative;
+            scrollbar-width: none;
+        }
+
+        .phone-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* GIAO DIỆN CHÍNH (MÀN HÌNH CHÀO) */
+        .screen {
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100%;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Viền đứt nét dễ thương xung quanh */
+        .dashed-border {
+            border: 3px dashed var(--accent-color);
+            border-radius: 25px;
+            padding: 20px 15px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #FFFfff;
+        }
+
+        /* Khu vực Avatar Trái Chanh */
+        .avatar-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .avatar-main {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+            background: var(--secondary-color);
+            padding: 5px;
+        }
+
+        .avatar-hint {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .sparkle-decor {
+            font-size: 14px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .web-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 0px #FFF;
+        }
+
+        .slogan-sub {
+            font-size: 13px;
+            font-weight: bold;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Khung Slogan Thơ Chiêm Nghiệm */
+        .quote-box {
+            border: 2px dotted var(--primary-color);
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            font-style: italic;
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: #FFFff8;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .quote-decor {
+            color: var(--accent-color);
+            font-size: 12px;
+            margin: 5px 0;
+        }
+
+        /* Trình phát nhạc mẫu */
+        .music-player {
+            width: 100%;
+            background: var(--secondary-color);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .btn-play {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* Các nút bấm lớn */
+        .btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: #FFF;
+            border: none;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 178, 0, 0.3);
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-main:active {
+            transform: scale(0.98);
+        }
+
+        /* Nút liên kết MXH phía dưới */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn-social {
+            background: #FFF;
+            border: 1.5px solid var(--primary-color);
+            padding: 8px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--text-color);
+            cursor: pointer;
+            text-align: center;
+        }
+
+
+        /* GIAO DIỆN HẬU CUNG (MÀN HÌNH DANH SÁCH) */
+        .top-bar-buttons {
+            display: flex;
+            width: 100%;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-small {
+            background: #FFF;
+            border: 2px solid var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .counter-box {
+            width: 100%;
+            background: var(--secondary-color);
+            padding: 10px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1.5px dashed var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* Bộ lọc phân loại thẻ */
+        .filter-section {
+            width: 100%;
+            border: 1.5px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 10px;
+            background: white;
+            margin-bottom: 15px;
+        }
+
+        .filter-title {
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+
+        .tag {
+            background: #FFFDF0;
+            border: 1px solid var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .tag.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        /* Danh sách Card Nhân Vật */
+        .character-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .char-card {
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .char-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .char-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .char-tag {
+            background: #FFFCEB;
+            border: 1px dotted var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            color: var(--accent-color);
+        }
+
+        .card-link-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FFFCEB, var(--secondary-color));
+            border: 1.5px solid var(--primary-color);
+            padding: 8px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            display: block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .card-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .btn-action {
+            background: #FFF;
+            border: 1.5px solid var(--primary-color);
+            padding: 6px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .btn-like {
+            background: #FFFDF0;
+            border: 1px solid #FFCCD5;
+            width: 100%;
+            padding: 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #FF4D6D;
+            cursor: pointer;
+        }
+
+        /* KHU VỰC THÊM NHÂN VẬT */
+        .form-add-char {
+            background: #FFFff2;
+            border: 2px dashed var(--accent-color);
+            border-radius: 20px;
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-add-char input {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border: 1.5px solid var(--primary-color);
+            border-radius: 10px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .btn-submit-char {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        
+        <div id="welcome-screen" class="screen">
+            <div class="dashed-border">
+                
+                <div class="avatar-container" onclick="triggerAvatarUpload()">
+                    <img id="avatar-img" class="avatar-main" src="https://img.icons8.com/emoji/96/lemon-emoji.png" alt="Lemon Avatar">
+                    <div class="avatar-hint">✏️</div>
+                </div>
+                <input type="file" id="avatar-input" accept="image/*" style="display: none;" onchange="loadAvatar(event)">
+
+                <div class="sparkle-decor">★ ˚ ◦ * 🍋 * ◦ ˚ ★</div>
+                
+                <h1 class="web-title">Góc Nhỏ Nhà Chanh</h1>
+                <div class="slogan-sub">─── VƯỜN CHANH CHỮA LÀNH ───</div>
+
+                <div class="quote-box">
+                    <div class="quote-decor">🍋 ─── 🍋</div>
+                    "Chanh chua thì kệ chanh chua<br>
+                    Vào góc nhà nhỏ, ngọt ngào ngập tràn<br>
+                    Dành cho công chúa dịu dàng<br>
+                    Bước vào đây sẽ bình an mỉm cười"
+                    <div class="quote-decor">🍋 ─── 🍋</div>
+                </div>
+
+                <div class="music-player">
+                    <div class="music-info">
+                        <span>🎵</span>
+                        <span>BGM: Bản nhạc ngọt ngào nhà Chanh</span>
+                    </div>
+                    <button class="btn-play">▶</button>
+                </div>
+
+                <button class="btn-main" onclick="switchScreen('harem-screen')">
+                    🍋 Vào Vườn Chanh 💛
+                </button>
+
+                <div class="social-grid">
+                    <div class="btn-social">📜 Quy định</div>
+                    <div class="btn-social">💬 Discord</div>
+                    <div class="btn-social">👍 Fanpage</div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div id="harem-screen" class="screen hidden">
+            
+            <div class="top-bar-buttons">
+                <button class="btn-small" onclick="switchScreen('welcome-screen')">⬅ Trở về</button>
+                <button class="btn-small" style="background-color: #FFF9D0;">🍪 Bánh Quy May Mắn</button>
+            </div>
+
+            <div class="counter-box">
+                🍋 Khu vườn hiện có: <span id="char-count">2</span> bạn nhỏ
+            </div>
+
+            <div class="form-add-char">
+                <p style="font-size: 13px; font-weight: bold; margin-bottom: 8px;">➕ Thêm Bạn Nhỏ Mới:</p>
+                <input type="text" id="new-name" placeholder="Nhập tên nhân vật...">
+                <input type="text" id="new-tags" placeholder="Nhập tag (Cách nhau bằng dấu phẩy, vd: Cổ đại, Ngọt)">
+                <input type="text" id="new-link" placeholder="Nhập Link AI (nếu có)...">
+                <input type="text" id="new-bg" placeholder="Nhập Background...">
+                <input type="text" id="new-prompt" placeholder="Nhập Lệnh (Prompt)...">
+                <button class="btn-submit-char" onclick="addCharacter()">Thêm Vào Vườn Chanh</button>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">🏷️ Phân loại tag</div>
+                <div class="tag-container">
+                    <span class="tag active" onclick="filterTag('All')">#Tất cả</span>
+                    <span class="tag" onclick="filterTag('Cổ đại')">#Cổ đại</span>
+                    <span class="tag" onclick="filterTag('Hiện đại')">#Hiện đại</span>
+                </div>
+            </div>
+
+            <div class="character-list" id="character-container">
+                </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Khởi tạo sẵn 2 nhân vật theo yêu cầu của bạn
+        let characters = [
+            {
+                id: 1,
+                name: "Trác Huân Duật",
+                tags: ["Cổ đại", "Hoàng tử"],
+                link: "https://aistudio.google.com/app/u/0/prompts/12u1DANzwwAqno9FkB1QKjjxQSR_Bgfw-?save=true",
+                background: "Trác huân duật là hoàng tử vong quốc.",
+                prompt: "Hoa chưa đơm, trái chưa kết, vườn nhỏ chưa sẵn sàng.",
+                likes: 0
+            },
+            {
+                id: 2,
+                name: "Huỳnh Bá Kiêu",
+                tags: ["Hiện đại", "Thanh mai trúc mã"],
+                link: "Chanh đang trong quá trình phát triển, chờ đơm hoa kết trái.",
+                background: "Thanh mai trúc mã lưu lạc của tôi",
+                prompt: "Hoa chưa đơm, trái chưa kết, vườn nhỏ chưa sẵn sàng.",
+                likes: 0
+            }
+        ];
+
+        // Chuyển màn hình
+        function switchScreen(screenId) {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('harem-screen').classList.add('hidden');
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        // Đổi Avatar
+        function triggerAvatarUpload() {
+            document.getElementById('avatar-input').click();
+        }
+
+        function loadAvatar(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById('avatar-img');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Thêm nhân vật tùy chỉnh trực tiếp qua form
+        function addCharacter() {
+            const nameInput = document.getElementById('new-name');
+            const tagsInput = document.getElementById('new-tags');
+            const linkInput = document.getElementById('new-link');
+            const bgInput = document.getElementById('new-bg');
+            const promptInput = document.getElementById('new-prompt');
+
+            if (!nameInput.value.trim()) {
+                alert('Vui lòng nhập tên bạn nhỏ nhé!');
+                return;
+            }
+
+            const tagsArray = tagsInput.value.split(',').map(t => t.trim()).filter(t => t.length > 0);
+
+            const newChar = {
+                id: Date.now(),
+                name: nameInput.value,
+                tags: tagsArray.length > 0 ? tagsArray : ["Bạn mới"],
+                link: linkInput.value.trim() || "Chưa có link",
+                background: bgInput.value.trim() || "Chưa cập nhật background",
+                prompt: promptInput.value.trim() || "Chưa có lệnh",
+                likes: 0
+            };
+
+            characters.push(newChar);
+            
+            // Xóa dữ liệu cũ trong ô nhập
+            nameInput.value = ''; tagsInput.value = ''; linkInput.value = ''; bgInput.value = ''; promptInput.value = '';
+
+            renderCharacters(characters);
+        }
+
+        function likeCharacter(id) {
+            const char = characters.find(c => c.id === id);
+            if(char) {
+                char.likes += 1;
+                renderCharacters(characters);
+            }
+        }
+
+        // Xem nhanh thông tin dạng Popup nhỏ nhắn dễ thương
+        function viewInfo(id, type) {
+            const char = characters.find(c => c.id === id);
+            if (!char) return;
+
+            if (type === 'bg') {
+                alert(`🍋 Background của [${char.name}]:\n\n${char.background}`);
+            } else if (type === 'prompt') {
+                alert(`📜 Lệnh (Prompt) của [${char.name}]:\n\n${char.prompt}`);
+            } else if (type === 'link') {
+                if (char.link.startsWith('http')) {
+                    window.open(char.link, '_blank');
+                } else {
+                    alert(`🍋 Link AI của [${char.name}]:\n\n${char.link}`);
+                }
+            }
+        }
+
+        // Hiển thị danh sách thẻ nhân vật ra màn hình
+        function renderCharacters(list) {
+            const container = document.getElementById('character-container');
+            document.getElementById('char-count').innerText = characters.length;
+
+            if (list.length === 0) {
+                container.innerHTML = `<div class="empty-state">Không tìm thấy bạn nhỏ nào!</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            list.forEach(char => {
+                const tagsHTML = char.tags.map(t => `<span class="char-tag">#${t}</span>`).join('');
+                
+                const cardHTML = `
+                    <div class="char-card">
+                        <div style="font-size: 11px; color: var(--accent-color); font-weight: bold; margin-bottom: 5px;">🍋 NEW 🍋</div>
+                        <div class="char-name">${char.name}</div>
+                        <div class="char-tags">
+                            ${tagsHTML}
+                        </div>
+                        
+                        <button class="card-link-btn" onclick="viewInfo(${char.id}, 'link')">🔗 Link AI</button>
+                        
+                        <div class="card-buttons">
+                            <button class="btn-action" onclick="viewInfo(${char.id}, 'bg')">📖 Background</button>
+                            <button class="btn-action" onclick="viewInfo(${char.id}, 'prompt')">📜 Lệnh</button>
+                        </div>
+                        <button class="btn-like" onclick="likeCharacter(${char.id})">
+                            💛 Lượt thích: ${char.likes}
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        function filterTag(tagName) {
+            const tags = document.querySelectorAll('.tag');
+            tags.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tagName === 'All') {
+                renderCharacters(characters);
+            } else {
+                const filtered = characters.filter(c => c.tags.includes(tagName));
+                renderCharacters(filtered);
+            }
+        }
+
+        // Tự chạy hàm hiển thị danh sách lần đầu tiên khi mở trang web
+        renderCharacters(characters);
+    </script>
+</body>
+</html>
